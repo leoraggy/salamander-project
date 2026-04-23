@@ -1,9 +1,10 @@
 # salamander-project
 
-## Developers
-
-@leoraggy
-@KevinSandoval12
+**Developed by:**
+  <ul>
+    <li>Leo Ragual <a target=_blank href="https://github.com/leoraggy">@leoraggy</a></li>
+    <li>Kevin Sandoval <a target=_blank href="https://github.com/KevinSandoval12">@KevinSandoval12</a></li>
+  </ul>
 
 Current color pallete:
 
