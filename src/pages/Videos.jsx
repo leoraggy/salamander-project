@@ -34,9 +34,9 @@ export default function Videos() {
   return (
     <div>
       <h1>Available Videos</h1>
-      <ul>
+      <ul className="flex">
         {videos.map((filename) => (
-          <li key={filename}>
+          <li className="bg-gray-100" key={filename}>
             <Link to={`preview/${filename}`}>{filename}</Link>
           </li>
         ))}
