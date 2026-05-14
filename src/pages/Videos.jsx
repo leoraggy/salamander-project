@@ -33,10 +33,13 @@ export default function Videos() {
 
   return (
     <div>
-      <h1>Available Videos</h1>
-      <ul className="flex">
+      <h1 className="text-center">Available Videos</h1>
+      <ul className="flex justify-center">
         {videos.map((filename) => (
-          <li className="bg-gray-100" key={filename}>
+          <li
+            className="bg-orange-300 text-white p-4 rounded-md"
+            key={filename}
+          >
             <Link to={`preview/${filename}`}>{filename}</Link>
           </li>
         ))}

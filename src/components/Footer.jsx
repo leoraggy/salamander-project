@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-gray-500 text-center">
+    <footer className="bg-green-600 text-white text-center">
       Kevdawg && Leo The Programmers
     </footer>
   );
