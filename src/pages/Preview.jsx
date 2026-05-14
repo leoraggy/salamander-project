@@ -4,7 +4,7 @@ export default function Preview() {
   const { filename } = useParams();
 
   return (
-    <div>
+    <div className="text-black">
       <h1>Preview: {filename}</h1>
       <p>
         Thumbnail and tuning controls will go here in a future pair program.

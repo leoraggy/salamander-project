@@ -42,7 +42,7 @@ export default function Videos() {
             className="text-center bg-orange-300 text-white p-6 rounded-md"
             key={filename}
           >
-            <Link to={`preview/${filename}`}>{filename}</Link>
+            <Link to={`/preview/${filename}`}>{filename}</Link>
           </li>
         ))}
       </ul>
