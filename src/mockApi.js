@@ -22,7 +22,7 @@ const thumbnails = {
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function getVideos() {
-  throw new Error("server unavailable");
+  // throw new Error("server unavailable");
   await delay(400);
   return videos;
 }
