@@ -32,12 +32,14 @@ export default function Videos() {
   }
 
   return (
-    <div>
-      <h1 className="text-center">Available Videos</h1>
-      <ul className="flex justify-center">
+    <div className="m-10">
+      <h1 className="justify-self-center text-center font-medium pl-2 pr-2 m-2 bg-green-600 text-white w-auto rounded-sm">
+        Available Videos
+      </h1>
+      <ul className="flex justify-center space-x-2">
         {videos.map((filename) => (
           <li
-            className="bg-orange-300 text-white p-4 rounded-md"
+            className="text-center bg-orange-300 text-white p-6 rounded-md"
             key={filename}
           >
             <Link to={`preview/${filename}`}>{filename}</Link>
