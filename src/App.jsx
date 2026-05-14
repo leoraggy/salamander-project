@@ -7,14 +7,18 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <TopNavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/videos" element={<Videos />} />
-        <Route path="/preview/:filename" element={<Preview />} />
-      </Routes>
+
+      <main className="grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/videos" element={<Videos />} />
+          <Route path="/preview/:filename" element={<Preview />} />
+        </Routes>
+      </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

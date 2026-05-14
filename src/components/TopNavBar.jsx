@@ -6,16 +6,16 @@ function TopNavBar() {
       <div>
         <Link to="/" className="flex">
           <img src="./logo.png" alt="Logo of Salamander" width={75} />
-          <p className="flex justify-center items-center text-white text-2xl pl-2 font-bold">
+          <p className="flex justify-center items-center text-white text-2xl pl-2 font-bold  hover:text-orange-400">
             Salamander Project
           </p>
         </Link>
       </div>
-      <div className="bg-orange-400 py-3 px-5 rounded-lg mr-2">
-        <Link to="/videos">
+      <Link to="/videos">
+        <div className="bg-orange-400 py-3 px-5 rounded-lg mr-2 hover:bg-orange-500">
           <p className="text-white text-2xl font-bold">Videos</p>
-        </Link>
-      </div>
+        </div>
+      </Link>
     </nav>
   );
 }
