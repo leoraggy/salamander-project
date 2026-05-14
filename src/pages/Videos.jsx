@@ -1,17 +1,46 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getVideos } from "../mockApi.js";
+import { Link } from "react-router-dom";
 
 export default function Videos() {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchVideos = async () => {
+    try {
+      const video = await getVideos();
+      setVideos(video);
+    } catch (error) {
+      setError(error.message);
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    getVideos().then((data) => {
-      console.log("getVideos returned:", data);
-    });
+    fetchVideos();
   }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Could not load videos: {error}</p>;
+  }
 
   return (
     <div>
       <h1>Available Videos</h1>
-      <p>Video list will go here.</p>
+      <ul>
+        {videos.map((filename) => (
+          <li key={filename}>
+            <Link to={`preview/${filename}`}>{filename}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
