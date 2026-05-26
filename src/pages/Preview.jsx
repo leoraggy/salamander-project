@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { getThumbnail } from "../mockApi";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Preview() {
   const { filename } = useParams();
@@ -11,6 +11,8 @@ export default function Preview() {
 
   const [color, setColor] = useState("#000000");
   const [range, setRange] = useState(32);
+
+  const canvasRef = useRef(null);
 
   const fetchThumbnail = async () => {
     try {
@@ -30,6 +32,7 @@ export default function Preview() {
 
   return (
     <div>
+      <canvas ref={canvasRef} />
       <div className="justify-self-center text-center font-medium pl-2 pr-2 m-2 bg-green-600 text-white w-auto rounded-sm">
         Preview: <img src={thumbnail} alt="image of salamander" />
         {filename}
