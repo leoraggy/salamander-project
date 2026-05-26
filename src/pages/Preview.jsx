@@ -13,6 +13,8 @@ export default function Preview() {
   const [range, setRange] = useState(32);
 
   const canvasRef = useRef(null);
+  const imgRef = useRef(null);
+  const [imageReady, setImageReady] = useState(false);
 
   const fetchThumbnail = async () => {
     try {
@@ -29,6 +31,18 @@ export default function Preview() {
   useEffect(() => {
     fetchThumbnail();
   }, []);
+
+  useEffect(() => {
+    if (!thumbnail) return;
+    setImageReady(false);
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      imgRef.current = img;
+      setImageReady(true);
+    };
+    img.src = thumbnail;
+  }, [thumbnail]);
 
   return (
     <div>
