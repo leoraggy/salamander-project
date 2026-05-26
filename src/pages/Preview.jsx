@@ -9,6 +9,9 @@ export default function Preview() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [color, setColor] = useState("#000000");
+  const [range, setRange] = useState(32);
+
   const fetchThumbnail = async () => {
     try {
       const data = await getThumbnail(filename);
@@ -43,6 +46,24 @@ export default function Preview() {
           After Video
         </div>
       </div>
+      Color
+      <input
+        type="color"
+        value={color}
+        onChange={(e) => {
+          setColor(e.target.value);
+          console.log("Color updated:", e.target.value);
+        }}
+      ></input>
+      Range
+      <input
+        type="range"
+        value={range}
+        onChange={(e) => {
+          setRange(e.target.value);
+          console.log("Range updated:", e.target.value);
+        }}
+      ></input>
     </div>
   );
 }
