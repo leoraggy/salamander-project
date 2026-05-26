@@ -28,11 +28,11 @@ export default function Preview() {
     }
   };
 
-  useEffect(() => {
-    fetchThumbnail();
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   useEffect(() => {
+    fetchThumbnail();
     if (!thumbnail) return;
     setImageReady(false);
     const img = new Image();
@@ -40,9 +40,27 @@ export default function Preview() {
     img.onload = () => {
       imgRef.current = img;
       setImageReady(true);
+      console.log(
+        "image loaded:",
+        imgRef.current.naturalWidth,
+        "x",
+        imgRef.current.naturalHeight,
+      );
     };
     img.src = thumbnail;
   }, [thumbnail]);
+
+  useEffect(() => {
+    if (!imageReady) return;
+    const img = imgRef.current;
+    const canvas = canvasRef.current;
+    if (!img || !canvas) return;
+
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+  }, [imageReady, color, range]);
 
   return (
     <div>
@@ -69,7 +87,6 @@ export default function Preview() {
         value={color}
         onChange={(e) => {
           setColor(e.target.value);
-          console.log("Color updated:", e.target.value);
         }}
       ></input>
       Range
@@ -78,7 +95,6 @@ export default function Preview() {
         value={range}
         onChange={(e) => {
           setRange(e.target.value);
-          console.log("Range updated:", e.target.value);
         }}
       ></input>
     </div>
