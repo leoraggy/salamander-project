@@ -114,8 +114,12 @@ export default function Preview() {
         <Link to="/videos">Back to videos ↩</Link>
       </div>
       <div className="flex justify-center space-x-8">
-        <div className="text-center bg-orange-300 text-white p-30 rounded-md">
-          <img src={thumbnail} alt="image of salamander" />
+        <div className="text-center bg-orange-300 text-white p-5 rounded-md">
+          <img
+            src={thumbnail}
+            alt="image of salamander"
+            className="w-previewSize h-previewSize"
+          />
           {filename}
           {/* <p>
         Thumbnail and tuning controls will go here in a future pair program.
@@ -123,8 +127,8 @@ export default function Preview() {
           <br />
           Before Video
         </div>
-        <div className="text-center bg-orange-300 text-white p-30 rounded-md">
-          <canvas ref={canvasRef} />
+        <div className="text-center bg-orange-300 text-white p-5 rounded-md">
+          <canvas ref={canvasRef} className="w-previewSize h-previewSize" />
           {filename}
           <br />
           After Video
