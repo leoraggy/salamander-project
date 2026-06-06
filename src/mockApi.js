@@ -28,10 +28,7 @@ export async function getVideos() {
 }
 
 export async function getThumbnail(filename) {
-  await delay(300);
-  if (!thumbnails[filename]) {
-    throw new Error(`No thumbnail for ${filename}`);
-  }
+  fetch("http://localhost:8080/api/thumbnail/ensantina.mp4")
   return thumbnails[filename];
 }
 
