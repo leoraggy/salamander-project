@@ -40,11 +40,9 @@ export const postProcessingJob = async (filename, targetColor, threshold) => {
   return data;
 };
 export const getJobStatus = async (jobId) => {
-  const response = await fetch(`api/process/${jobId}/status`);
+  const response = await fetch(`/api/process/${jobId}/status`);
 
-  if (!response.ok) {
-    throw new Error(`Server responded with status ${response.status}`);
-  }
+  if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
   const data = await response.json();
 

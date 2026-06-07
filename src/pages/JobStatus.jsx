@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { getJobStatus } from "../api";
 
 export default function JobStatusScreen() {
   const { jobId } = useParams();
@@ -9,11 +10,7 @@ export default function JobStatusScreen() {
 
   const fetchJobStatus = async () => {
     try {
-      // Points to: GET /api/process/{jobId}/status
-      const response = await fetch(`/api/process/${jobId}/status`);
-      if (!response.ok) throw new Error(`Server error: ${response.status}`);
-
-      const data = await response.json();
+      const data = await getJobStatus(jobId);
       setJobData(data);
     } catch (err) {
       setError(err.message);
@@ -26,7 +23,6 @@ export default function JobStatusScreen() {
     fetchJobStatus();
 
     const interval = setInterval(() => {
-      // Stop polling if status matches what your Java backend emits: "done" or "error"
       if (
         jobData &&
         (jobData.status === "done" || jobData.status === "error")
@@ -42,54 +38,60 @@ export default function JobStatusScreen() {
 
   if (loading)
     return (
-      <div className="text-center p-10 text-white">Checking status...</div>
+      <div className="text-center p-10 text-emerald-700 font-medium">
+        Checking status...
+      </div>
     );
   if (error)
-    return <div className="text-center p-10 text-red-500">Error: {error}</div>;
+    return (
+      <div className="text-center p-10 text-red-600 font-medium">
+        Error: {error}
+      </div>
+    );
 
   return (
-    <div className="max-w-md mx-auto my-10 p-6 bg-slate-800 text-white rounded-lg shadow-md text-center">
-      <h2 className="text-2xl font-bold mb-4">Processing Status</h2>
-      <p className="text-sm text-gray-400 mb-6">
-        Job ID: <span className="font-mono text-yellow-400">{jobId}</span>
+    <div className="max-w-md mx-auto my-10 p-6 bg-white text-gray-800 rounded-xl border border-gray-100 shadow-lg text-center">
+      <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        Processing Status
+      </h2>
+      <p className="text-sm text-gray-500 mb-6">
+        Job ID:{" "}
+        <span className="font-mono text-green-600 font-semibold">{jobId}</span>
       </p>
 
       {jobData && (
         <div className="space-y-6">
-          {/* Status Badge */}
           <div>
             <span
-              className={`px-4 py-1.5 rounded-full text-sm font-semibold uppercase ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${
                 jobData.status === "done"
-                  ? "bg-green-600"
+                  ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
                   : jobData.status === "error"
-                    ? "bg-red-600"
-                    : "bg-blue-600 animate-pulse"
+                    ? "bg-red-100 text-red-800 border border-red-200"
+                    : "bg-amber-100 text-amber-800 border border-amber-200 animate-pulse"
               }`}
             >
               {jobData.status}
             </span>
           </div>
 
-          {/* Conditional Layout adjustments when completed */}
           {jobData.status === "done" && (
-            <div className="mt-6 p-4 bg-slate-700 rounded border border-green-500">
-              <p className="text-green-400 font-medium mb-3">
-                ✨ Data parsing complete!
+            <div className="mt-6 p-5 bg-green-600 rounded-lg border border-emerald-200">
+              <p className="text-white font-semibold mb-4">
+                Data parsing complete!
               </p>
 
-              {/* Direct Native Link targeting the new Java controller endpoint */}
               <a
                 href={`/api/process/${jobId}/download`}
-                className="inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded font-bold transition-colors shadow-sm"
+                className="inline-block bg-orange-400 hover:bg-orange-500 text-white px-5 py-2.5 rounded-md font-bold transition-colors shadow-sm"
               >
-                📥 Download Results CSV
+                📥 Download CSV
               </a>
             </div>
           )}
 
           {jobData.status === "error" && (
-            <p className="text-red-400 text-sm mt-2">
+            <p className="text-red-600 text-sm mt-2 font-medium">
               {jobData.errorMessage ||
                 "An internal error occurred during compute execution."}
             </p>
@@ -97,8 +99,11 @@ export default function JobStatusScreen() {
         </div>
       )}
 
-      <div className="mt-8 pt-4 border-t border-slate-700">
-        <Link to="/videos" className="text-blue-400 hover:underline text-sm">
+      <div className="mt-8 pt-4 border-t border-gray-100">
+        <Link
+          to="/videos"
+          className="text-emerald-600 hover:text-emerald-700 font-medium text-sm transition-colors hover:underline"
+        >
           ← Back to Videos
         </Link>
       </div>
