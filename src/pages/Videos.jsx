@@ -7,6 +7,12 @@ export default function Videos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const sanitizeFileName = (fileName) => {
+    const index = fileName.indexOf(".");
+    fileName = fileName.substring(0, index);
+    return fileName;
+  };
+
   const fetchVideos = async () => {
     try {
       const video = await getVideos();
@@ -27,23 +33,25 @@ export default function Videos() {
     return <p className="text-center">Loading...</p>;
   }
 
-  if (error) {
-    return <p>Could not load videos: {error}</p>;
+  {
+    error && <div className="text-center text-red-500 m-2">Error: {error}</div>;
   }
 
   return (
     <div className="m-10">
-      <h1 className="justify-self-center text-center font-medium pl-2 pr-2 m-2 bg-green-600 text-white w-auto rounded-sm">
-        Available Videos
+      <h1 className="justify-self-center text-center font-bold m-2 text-green-600 w-auto text-2xl">
+        List of Videos
       </h1>
       <ul className="flex justify-center space-x-2">
         {videos.map((filename) => (
-          <li
-            className="text-center bg-orange-300 text-white p-6 rounded-md"
-            key={filename}
-          >
-            <Link to={`/preview/${filename}`}>{filename}</Link>
-          </li>
+          <Link to={`/preview/${filename}`}>
+            <li
+              className="text-center bg-orange-300 hover:bg-orange-400 text-white p-6 rounded-md"
+              key={filename}
+            >
+              {sanitizeFileName(filename)}
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

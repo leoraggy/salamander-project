@@ -11,11 +11,19 @@ function TopNavBar() {
           </p>
         </Link>
       </div>
-      <Link to="/videos">
-        <div className="bg-orange-400 py-3 px-5 rounded-lg mr-2 hover:bg-orange-500">
-          <p className="text-white text-2xl font-bold">Videos</p>
-        </div>
-      </Link>
+
+      <div className="flex gap-1">
+        <Link to="/">
+          <div className="bg-orange-400 py-3 px-5 rounded-lg mr-2 hover:bg-orange-500">
+            <p className="text-white text-2xl font-bold">Home</p>
+          </div>
+        </Link>
+        <Link to="/videos">
+          <div className="bg-orange-400 py-3 px-5 rounded-lg mr-2 hover:bg-orange-500">
+            <p className="text-white text-2xl font-bold">Videos</p>
+          </div>
+        </Link>
+      </div>
     </nav>
   );
 }

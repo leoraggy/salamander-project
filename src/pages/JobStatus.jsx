@@ -85,7 +85,7 @@ export default function JobStatusScreen() {
                 href={`/api/process/${jobId}/download`}
                 className="inline-block bg-orange-400 hover:bg-orange-500 text-white px-5 py-2.5 rounded-md font-bold transition-colors shadow-sm"
               >
-                📥 Download CSV
+                Download CSV
               </a>
             </div>
           )}
@@ -104,7 +104,7 @@ export default function JobStatusScreen() {
           to="/videos"
           className="text-emerald-600 hover:text-emerald-700 font-medium text-sm transition-colors hover:underline"
         >
-          ← Back to Videos
+          Back to Videos
         </Link>
       </div>
     </div>

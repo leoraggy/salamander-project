@@ -126,8 +126,8 @@ export default function Preview() {
 
   return (
     <div>
-      <div className="justify-self-center text-center font-medium pl-2 pr-2 m-2 bg-green-600 text-white w-auto rounded-sm">
-        <Link to="/videos">Back to videos ↩</Link>
+      <div className="justify-self-center text-center font-medium pl-2 pr-2 py-2 m-2 bg-green-600 hover:bg-green-700 text-white w-auto rounded-sm">
+        <Link to="/videos">Back To Videos</Link>
       </div>
 
       {error && (
@@ -135,24 +135,20 @@ export default function Preview() {
       )}
 
       <div className="flex justify-center space-x-8">
-        <div className="text-center bg-orange-300 text-white p-5 rounded-md">
+        <div className="text-center bg-orange-300 font-bold text-white pl-5 pr-5 pb-5 rounded-md">
+          <p className="text-xl">Preview</p>
           <img
             src={thumbnail}
             alt="image of salamander"
-            className="max-w-[400px] max-h-[400px] object-contain mx-auto"
+            className="max-w-100 max-h-100 object-contain mx-auto"
           />
-          {filename}
-          <br />
-          Before Video
         </div>
-        <div className="text-center bg-orange-300 text-white p-5 rounded-md">
+        <div className="text-center bg-orange-300 font-bold text-white pl-5 pr-5 pb-5 rounded-md">
+          <p className="text-xl">Centroid</p>
           <canvas
             ref={canvasRef}
-            className="max-w-[400px] max-h-[400px] object-contain mx-auto"
+            className="max-w-100 max-h-100 object-contain mx-auto"
           />
-          {filename}
-          <br />
-          After Video
         </div>
       </div>
 
@@ -187,10 +183,10 @@ export default function Preview() {
             className={`px-4 py-2 font-bold rounded shadow transition-colors ${
               isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700 text-white"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
-            {isSubmitting ? "Processing..." : "Apply to Video"}
+            {isSubmitting ? "Processing..." : "Begin Processing Job"}
           </button>
 
           {submitStatus === "success" && (
