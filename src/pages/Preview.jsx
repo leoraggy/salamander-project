@@ -9,27 +9,33 @@ function findLargestGroup(grid) {
 
   let largestGroup = null;
 
-  function dfs(row, col, stats) {
-    if (
-      row < 0 ||
-      col < 0 ||
-      row >= rows ||
-      col >= cols ||
-      grid[row][col] === 0
-    ) {
-      return;
+  function dfs(startRow, startCol, stats) {
+    const stack = [[startRow, startCol]];
+
+    while (stack.length > 0) {
+      const [row, col] = stack.pop();
+
+      if (
+        row < 0 ||
+        col < 0 ||
+        row >= rows ||
+        col >= cols ||
+        grid[row][col] === 0
+      ) {
+        continue;
+      }
+
+      grid[row][col] = 0;
+
+      stats.size++;
+      stats.xSum += col;
+      stats.ySum += row;
+
+      stack.push([row - 1, col]);
+      stack.push([row + 1, col]);
+      stack.push([row, col - 1]);
+      stack.push([row, col + 1]);
     }
-
-    grid[row][col] = 0;
-
-    stats.size++;
-    stats.xSum += col;
-    stats.ySum += row;
-
-    dfs(row - 1, col, stats);
-    dfs(row + 1, col, stats);
-    dfs(row, col - 1, stats);
-    dfs(row, col + 1, stats);
   }
 
   for (let row = 0; row < rows; row++) {
@@ -91,6 +97,17 @@ export default function Preview() {
     fetchThumbnail();
   }, [filename]);
 
+  // debounce useEffect
+  const [debouncedThreshold, setDebouncedThreshold] = useState(threshold);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedThreshold(threshold);
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [threshold]);
+
   useEffect(() => {
     if (!thumbnail) return;
     setImageReady(false);
@@ -149,7 +166,7 @@ export default function Preview() {
             (blue - targetBlue) ** 2,
         );
 
-        if (distance < threshold) {
+        if (distance < debouncedThreshold) {
           px[index] = 255;
           px[index + 1] = 255;
           px[index + 2] = 255;
@@ -192,7 +209,7 @@ export default function Preview() {
         largestGroup.centroidY,
       );
     }
-  }, [imageReady, color, threshold]); // Dependency updated
+  }, [imageReady, color, debouncedThreshold]); // Dependency updated
 
   const handleSubmitJob = async () => {
     setIsSubmitting(true);
