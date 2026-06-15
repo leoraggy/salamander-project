@@ -43,16 +43,24 @@ export default function Videos() {
         List of Videos
       </h1>
       <ul className="flex justify-center space-x-2">
-        {videos.map((filename) => (
-          <Link to={`/preview/${filename}`}>
-            <li
-              className="text-center bg-orange-300 hover:bg-orange-400 text-white p-6 rounded-md"
-              key={filename}
-            >
-              {sanitizeFileName(filename)}
-            </li>
-          </Link>
-        ))}
+        {videos.map((filename) => {
+          const thumbnailUrl = `http://localhost:8080/api/thumbnail/${filename}`;
+          return (
+            <Link to={`/preview/${filename}`}>
+              <li
+                key={filename}
+                className="text-center bg-orange-300 hover:bg-orange-400 text-white p-6 rounded-md"
+              >
+                <img
+                  src={thumbnailUrl}
+                  alt={filename}
+                  className="w-auto h-50"
+                />
+                {sanitizeFileName(filename)}
+              </li>
+            </Link>
+          );
+        })}
       </ul>
     </div>
   );
