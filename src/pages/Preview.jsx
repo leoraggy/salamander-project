@@ -3,6 +3,60 @@ import { getThumbnail, postProcessingJob } from "../api";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+function findLargestGroup(grid) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+
+  let largestGroup = null;
+
+  function dfs(row, col, stats) {
+    if (
+      row < 0 ||
+      col < 0 ||
+      row >= rows ||
+      col >= cols ||
+      grid[row][col] === 0
+    ) {
+      return;
+    }
+
+    grid[row][col] = 0;
+
+    stats.size++;
+    stats.xSum += col;
+    stats.ySum += row;
+
+    dfs(row - 1, col, stats);
+    dfs(row + 1, col, stats);
+    dfs(row, col - 1, stats);
+    dfs(row, col + 1, stats);
+  }
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (grid[row][col] === 1) {
+        const stats = {
+          size: 0,
+          xSum: 0,
+          ySum: 0,
+        };
+
+        dfs(row, col, stats);
+
+        if (!largestGroup || stats.size > largestGroup.size) {
+          largestGroup = {
+            size: stats.size,
+            centroidX: Math.floor(stats.xSum / stats.size),
+            centroidY: Math.floor(stats.ySum / stats.size),
+          };
+        }
+      }
+    }
+  }
+
+  return largestGroup;
+}
+
 export default function Preview() {
   const { filename } = useParams();
 
@@ -77,30 +131,67 @@ export default function Preview() {
     const targetGreen = parseInt(color.slice(3, 5), 16);
     const targetBlue = parseInt(color.slice(5, 7), 16);
 
-    for (let i = 0; i < px.length; i += 4) {
-      const red = px[i];
-      const green = px[i + 1];
-      const blue = px[i + 2];
+    const binaryGrid = [];
 
-      const distance = Math.sqrt(
-        (red - targetRed) ** 2 +
-          (green - targetGreen) ** 2 +
-          (blue - targetBlue) ** 2,
-      );
+    for (let y = 0; y < canvas.height; y++) {
+      binaryGrid[y] = [];
 
-      // Binarize using threshold
-      if (distance < threshold) {
-        px[i] = 255;
-        px[i + 1] = 255;
-        px[i + 2] = 255;
-      } else {
-        px[i] = 0;
-        px[i + 1] = 0;
-        px[i + 2] = 0;
+      for (let x = 0; x < canvas.width; x++) {
+        const index = (y * canvas.width + x) * 4;
+
+        const red = px[index];
+        const green = px[index + 1];
+        const blue = px[index + 2];
+
+        const distance = Math.sqrt(
+          (red - targetRed) ** 2 +
+            (green - targetGreen) ** 2 +
+            (blue - targetBlue) ** 2,
+        );
+
+        if (distance < threshold) {
+          px[index] = 255;
+          px[index + 1] = 255;
+          px[index + 2] = 255;
+
+          binaryGrid[y][x] = 1;
+        } else {
+          px[index] = 0;
+          px[index + 1] = 0;
+          px[index + 2] = 0;
+
+          binaryGrid[y][x] = 0;
+        }
       }
     }
-
     ctx.putImageData(data, 0, 0);
+
+    const gridCopy = binaryGrid.map((row) => [...row]);
+
+    const largestGroup = findLargestGroup(gridCopy);
+
+    console.log(largestGroup);
+    if (largestGroup) {
+      ctx.beginPath();
+      ctx.arc(
+        largestGroup.centroidX,
+        largestGroup.centroidY,
+        8,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fillStyle = "red";
+      ctx.fill();
+
+      console.log(
+        "Largest group:",
+        largestGroup.size,
+        "Centroid:",
+        largestGroup.centroidX,
+        largestGroup.centroidY,
+      );
+    }
   }, [imageReady, color, threshold]); // Dependency updated
 
   const handleSubmitJob = async () => {
