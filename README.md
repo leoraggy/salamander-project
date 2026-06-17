@@ -15,6 +15,8 @@ There are **4** main pages. This guide walks through what each one does.
 
 ## 1. Home Page
 
+<img width="2878" height="1382" alt="image" src="https://github.com/user-attachments/assets/b4e22c33-c13e-4f8c-8ddf-9415a291e1ca" />
+
 The Home page is a simple starting point.
 
 What you can do:
@@ -28,6 +30,8 @@ This page provides a quick entry into the video browser. You can always return h
 
 ## 2. Videos List Page
 
+<img width="1835" height="850" alt="image" src="https://github.com/user-attachments/assets/6415c9a4-4350-4326-8491-9356dd1d1b8d" />
+
 This is where you select a video to work with.
 
 What you can do:
@@ -38,6 +42,9 @@ What you can do:
 ---
 
 ## 3. Preview & Customize Page
+
+<img width="1991" height="1120" alt="image" src="https://github.com/user-attachments/assets/77d60562-ddb0-4b04-ae78-705f8dc8b461" />
+
 
 This page shows a preview frame from the video and lets you adjust your tracking settings.
 
@@ -64,6 +71,8 @@ When you're happy, click:
 
 ## 3. Processing & Download
 
+<img width="1002" height="533" alt="image" src="https://github.com/user-attachments/assets/a7cef0ce-a476-4d7c-85be-74e983b5573a" />
+
 After you start processing:
 
 - The status message shows:
@@ -71,11 +80,15 @@ After you start processing:
   - “Done!” when finished
   - Or an error if something goes wrong
 
+<img width="990" height="829" alt="image" src="https://github.com/user-attachments/assets/b5ef62e4-b134-4c50-966f-f0c9b3b2eeb5" />
+
 Once it's done:
 
 - A link appears to download a CSV file with tracking results, viewable in any spreadsheet program.
 
 ## 4. Charts Page
+
+<img width="2878" height="1379" alt="image" src="https://github.com/user-attachments/assets/f66e3dfd-aed2-4482-9c3c-803a513c2cad" />
 
 In this page, you will need to choose a csv file of the outputted processing job.
 
