@@ -23,6 +23,11 @@ function TopNavBar() {
             <p className="text-white text-2xl font-bold">Videos</p>
           </div>
         </Link>
+        <Link to="/charts">
+          <div className="bg-orange-400 py-3 px-5 rounded-lg mr-2 hover:bg-orange-500">
+            <p className="text-white text-2xl font-bold">Charts</p>
+          </div>
+        </Link>
       </div>
     </nav>
   );
