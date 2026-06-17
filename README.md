@@ -1,4 +1,4 @@
-# 🦎 Salamander Tracker – Web Application Guide
+# Salamander Tracker – Web Application Guide
 
 **Developed by:**
 
