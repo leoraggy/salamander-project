@@ -114,4 +114,7 @@ Here are the main Backend API endpoints:
 | POST   | `api/process/:filename`     | Starts a job to process the video    |
 | GET    | `api/process/:jobId/status` | Checks the processing status         |
 
+## For more information on the backend, click this link!
+## https://github.com/leoraggy/centroid-finder
+
 ---
